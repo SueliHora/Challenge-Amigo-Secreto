@@ -1,0 +1,10 @@
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
+
+# Arquivos temporários
+*.tmp
+*.~*
+
+# Outros
+node_modules/
