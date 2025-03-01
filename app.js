@@ -1,4 +1,5 @@
 //O principal objetivo deste desafio é fortalecer suas habilidades em lógica de programação. Aqui você deverá desenvolver a lógica para resolver o problema.
+
 // Seleciona os elementos HTML
 const inputAmigo = document.getElementById("amigo");
 const btnAdicionar = document.querySelector(".button-add");
@@ -6,17 +7,25 @@ const btnSortear = document.querySelector(".button-draw");
 const listaAmigos = document.getElementById("listaAmigos");
 const resultado = document.getElementById("resultado");
 
-// Array para armazenar os nomes
+// 1) Crie um array para armazenar os nomes
 let amigos = [];
-let amigosSorteados = []; // Array para guardar os nomes sorteados
+let sorteioRealizado = false; // Variável para controlar se já houve um sorteio
 
-// Função para adicionar um amigo à lista
+// 2) Implementa uma função para agregar amigos
 function adicionarAmigo() {
   const nome = inputAmigo.value.trim(); // Remove espaços em branco no início e no fim
 
   // Valida se o campo está vazio
   if (nome === "") {
     alert("Por favor, insira um nome válido.");
+    return;
+  }
+
+  // Valida se o nome já existe na lista
+  if (amigos.includes(nome)) {
+    alert("Este nome já foi adicionado.");
+    inputAmigo.value = "";
+    inputAmigo.focus();
     return;
   }
 
@@ -29,7 +38,7 @@ function adicionarAmigo() {
   inputAmigo.focus();
 }
 
-// Função para atualizar a lista de amigos na tela
+// 3) Implementa uma função para atualizar a lista de amigos na tela
 function atualizarListaAmigos() {
   listaAmigos.innerHTML = ""; // Limpa a lista para evitar duplicação
 
@@ -43,30 +52,30 @@ function atualizarListaAmigos() {
 
 // Função para sortear um amigo secreto
 function sortearAmigo() {
-  // Verifica se há pelo menos um nome na lista
-  if (amigos.length < 1) {
-    alert("Por favor, insira pelo menos um nome para o sorteio.");
+  // Verifica se há pelo menos dois nomes na lista
+  if (amigos.length < 2) {
+    alert("Por favor, insira pelo menos dois nomes para o sorteio.");
     return;
   }
 
   // Verifica se já houve um sorteio antes
-  if (amigosSorteados.length > 0) {
+  if (sorteioRealizado) {
     // Pergunta se o usuário deseja sortear com os mesmos nomes
     const confirmar = confirm("Deseja efetuar o sorteio com os mesmos nomes?");
 
     if (confirmar) {
       // Realiza o sorteio aleatório com os mesmos nomes
-      const indiceSorteado = Math.floor(Math.random() * amigosSorteados.length);
-      const amigoSorteado = amigosSorteados[indiceSorteado];
+      const indiceSorteado = Math.floor(Math.random() * amigos.length);
+      const amigoSorteado = amigos[indiceSorteado];
 
       // Exibe o resultado do sorteio
       resultado.innerHTML = `<p>O amigo secreto sorteado é: ${amigoSorteado}!</p>`;
     } else {
       // Limpa a lista de amigos e recomeça
       amigos = [];
-      amigosSorteados = [];
-      listaAmigos.innerHTML = "";
+      atualizarListaAmigos();
       resultado.innerHTML = "";
+      sorteioRealizado = false; // Reseta a variável de controle
       alert("A lista de amigos foi limpa. Adicione novos nomes para sortear.");
     }
   } else {
@@ -74,12 +83,10 @@ function sortearAmigo() {
     const indiceSorteado = Math.floor(Math.random() * amigos.length);
     const amigoSorteado = amigos[indiceSorteado];
 
-    // Guarda os nomes sorteados
-    amigosSorteados = [...amigos];
-
-    // Limpa a lista de amigos e exibe o resultado do sorteio
-    listaAmigos.innerHTML = "";
+    // Exibe o resultado do sorteio
     resultado.innerHTML = `<p>O amigo secreto sorteado é: ${amigoSorteado}!</p>`;
+
+    sorteioRealizado = true; // Marca que o sorteio foi realizado
   }
 }
 
