@@ -2,7 +2,7 @@
 
 Desafio do programa Oracle One e Alura
 
-![Badge de Conclusão](assets/badge do Projeto - Sueli da Hora Moreira.png)
+![Badge de Conclusão](assets/badge-sueli.png)
 
 Desenvolvimento do aplicativo de Amigo Secreto desenvolvido com HTML, CSS e JavaScript.
 
